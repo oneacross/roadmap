@@ -38,9 +38,7 @@ def populate_start_dates(features, workers)
             start_date = DateTime.parse(feat['start_date'])
         else
             # Pick the worker who is free first
-            worker = day_free.min_by { |wrkr, free_date| free_date }[0]
-
-            start_date = day_free[worker]
+            worker, start_date = day_free.min_by { |wrkr, free_date| free_date }
 
             # Update start_time
             feat['start_date'] = start_date.strftime("%B %e, %Y")
