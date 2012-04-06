@@ -7,11 +7,11 @@ require 'ostruct'
 require 'date'
 
 def populate_start_dates(features, owners)
-    day = DateTime.now
     day_free = {}
 
+    # Initializer each owner's free day to today.
     owners.each do |owner|
-      day_free[owner] = day
+      day_free[owner] = DateTime.now
     end
 
     features.each do |feat|
