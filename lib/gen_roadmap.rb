@@ -22,8 +22,7 @@ def populate_start_dates(features, workers)
 
         if feat.has_key?('start_date')
             if !feat.has_key?('owner')
-                p "Topic #{feat['name']} has a start_date, but no owner"
-                raise NotImplementedError
+                raise NotImplementedError, "Topic #{feat['name']} has a start_date, but no owner"
             end
 
             worker = feat['owner']

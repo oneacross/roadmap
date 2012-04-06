@@ -74,4 +74,17 @@ describe "populate_start_dates" do
       populate_start_dates(features, owners)
     }.to raise_error(NotImplementedError)
   end
+
+  it "if a feature has a start_date, it must have an owner" do
+    features = [
+      { 'name' => 'task1',
+        'estimated_effort' => '1 day',
+        'start_date' => Date.today }
+    ]
+
+    owners = ['worker1', 'worker2']
+    expect {
+      populate_start_dates(features, owners)
+    }.to raise_error(NotImplementedError)
+  end
 end
