@@ -6,6 +6,20 @@ require 'csv'
 require 'ostruct'
 require 'date'
 
+def validate_features(features)
+  features.each do |feat|
+      if !feat.has_key?('estimated_effort')
+          raise NotImplementedError, "Topic #{feat['name']} does not have an estimated_effort"
+      end
+
+      if feat.has_key?('start_date')
+          if !feat.has_key?('owner')
+              raise NotImplementedError, "Topic #{feat['name']} has a start_date, but no owner"
+          end
+      end
+  end
+end
+
 def populate_start_dates(features, workers)
     day_free = {}
 
@@ -14,17 +28,12 @@ def populate_start_dates(features, workers)
       day_free[worker] = DateTime.now
     end
 
+    validate_features(features)
+
     features.each do |feat|
-        if !feat.has_key?('estimated_effort')
-            raise NotImplementedError, "Topic #{feat['name']} does not have an estimated_effort"
-        end
         estimated_effort = feat['estimated_effort']
 
         if feat.has_key?('start_date')
-            if !feat.has_key?('owner')
-                raise NotImplementedError, "Topic #{feat['name']} has a start_date, but no owner"
-            end
-
             worker = feat['owner']
             start_date = DateTime.parse(feat['start_date'])
         else
