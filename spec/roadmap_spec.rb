@@ -63,4 +63,15 @@ describe "populate_start_dates" do
     # Takes account of weekend, this test only passes on Friday
     features[2]['start_date'].should == (Date.today + 3).strftime("%B %e, %Y")
   end
+
+  it "every feature must have an estimated_effort" do
+    features = [
+      { 'name' => 'task1' }
+    ]
+
+    owners = ['worker1', 'worker2']
+    expect {
+      populate_start_dates(features, owners)
+    }.to raise_error(NotImplementedError)
+  end
 end

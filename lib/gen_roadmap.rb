@@ -16,8 +16,7 @@ def populate_start_dates(features, workers)
 
     features.each do |feat|
         if !feat.has_key?('estimated_effort')
-            p "Topic #{feat['name']} does not have an estimated_effort"
-            raise NotImplementedError
+            raise NotImplementedError, "Topic #{feat['name']} does not have an estimated_effort"
         end
         estimated_effort = feat['estimated_effort']
 
