@@ -1,0 +1,41 @@
+<html>
+  <head><title>Roadmap</title></head>
+  <body>
+    <h2>Roadmap</h2>
+
+    <table border="1">
+      <tr>
+        <td>Name</td>
+        <td>Owner</td>
+        <td>Estimated Effort</td>
+        <td>Start Date</td>
+        <td>End Date</td>
+      </tr>
+      <% features.each do |f| %>
+        <tr>
+          <td><%= f['name'] %></td>
+
+          <% if f.has_key?('owner') %>
+            <td><%= f['owner'] %></td>
+          <% else %>
+            <td>Not assigned</td>
+          <% end %>
+
+          <td><%= f['estimated_effort'] %></td>
+
+          <% if f.has_key?('start_date') %>
+            <td><%= f['start_date'] %></td>
+          <% else %>
+            <td>No estimate start date yet</td>
+          <% end %>
+
+          <% if f.has_key?('end_date') %>
+            <td><%= f['end_date'] %></td>
+          <% else %>
+            <td>Not yet completed</td>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
+  </body>
+</html>
