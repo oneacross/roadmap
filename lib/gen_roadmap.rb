@@ -64,21 +64,23 @@ def populate_start_dates(features)
     end
 end
 
-features = YAML::load_file('features.yml')
-populate_start_dates(features)
+def main()
+  features = YAML::load_file('features.yml')
+  populate_start_dates(features)
 
-erb = ERB.new(File.read('roadmap.rhtml'))
-output = erb.result(binding)
+  erb = ERB.new(File.read('roadmap.rhtml'))
+  output = erb.result(binding)
 
-# Static HTML file to link to from wiki.
-File.open("roadmap.html", "w") do |f|
-  f.write(output)
-end
+  # Static HTML file to link to from wiki.
+  File.open("roadmap.html", "w") do |f|
+    f.write(output)
+  end
 
-# Create CSV file for managers to use
-CSV.open("roadmap.csv", "w") do |csv|
-  csv << ['name', 'owner', 'estimated_effort', 'start_date', 'end_date']
-  features.each do |f|
-    csv << [f['name'], f['owner'], f['estimated_effort'], f['start_date'], f['end_date']]
+  # Create CSV file for managers to use
+  CSV.open("roadmap.csv", "w") do |csv|
+    csv << ['name', 'owner', 'estimated_effort', 'start_date', 'end_date']
+    features.each do |f|
+      csv << [f['name'], f['owner'], f['estimated_effort'], f['start_date'], f['end_date']]
+    end
   end
 end
