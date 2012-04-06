@@ -1,0 +1,4 @@
+A dead simple roadmap generator.
+
+Person edits YAML file, script turns into HTML and CSV.
+Future dates get automatically populated, accounting for weekends.
