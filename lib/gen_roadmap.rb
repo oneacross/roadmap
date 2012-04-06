@@ -40,7 +40,6 @@ def populate_start_dates(features, workers)
             # Pick the worker who is free first
             worker, start_date = day_free.min_by { |wrkr, free_date| free_date }
 
-            # Update start_time
             feat['start_date'] = start_date.strftime("%B %e, %Y")
         end
 
@@ -50,7 +49,7 @@ def populate_start_dates(features, workers)
             effort_days = estimated_effort.match(/(?<day>\d+)/)[:day].to_i
         end
 
-        # Skip weekends
+        # Increment start_date, skipping weekends
         effort_days.times do
             if start_date.to_date.wday == 5
                 # Friday => Monday
