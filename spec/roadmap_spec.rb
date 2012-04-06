@@ -22,7 +22,8 @@ describe "populate_start_dates" do
         'estimated_effort' => '1 day' }
     ]
 
-    populate_start_dates(features)
+    owners = ['worker1', 'worker2']
+    populate_start_dates(features, owners)
 
     features[0]['start_date'].should == Date.today.strftime("%B %e, %Y")
   end
@@ -37,7 +38,8 @@ describe "populate_start_dates" do
         'estimated_effort' => '1 day' }
     ]
 
-    populate_start_dates(features)
+    owners = ['worker1', 'worker2']
+    populate_start_dates(features, owners)
 
     features[1]['start_date'].should == Date.today.strftime("%B %e, %Y")
   end
@@ -55,7 +57,8 @@ describe "populate_start_dates" do
         'estimated_effort' => '1 day' }
     ]
 
-    populate_start_dates(features)
+    owners = ['worker1', 'worker2']
+    populate_start_dates(features, owners)
 
     # Takes account of weekend, this test only passes on Friday
     features[2]['start_date'].should == (Date.today + 3).strftime("%B %e, %Y")

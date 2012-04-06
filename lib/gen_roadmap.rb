@@ -6,11 +6,13 @@ require 'csv'
 require 'ostruct'
 require 'date'
 
-def populate_start_dates(features)
+def populate_start_dates(features, owners)
     day = DateTime.now
     day_free = {}
-    day_free['worker1'] = day
-    day_free['worker2'] = day
+
+    owners.each do |owner|
+      day_free[owner] = day
+    end
 
     features.each do |feat|
         if !feat.has_key?('estimated_effort')
@@ -29,11 +31,7 @@ def populate_start_dates(features)
             start_date = DateTime.parse(feat['start_date'])
         else
             # Pick the owner who is free first
-            if day_free['worker1'] < day_free['worker2']
-                owner = 'worker1'
-            else
-                owner = 'worker2'
-            end
+            owner = day_free.min_by { |owner, free_date| free_date }[0]
 
             start_date = day_free[owner]
 
