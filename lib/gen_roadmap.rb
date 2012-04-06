@@ -6,12 +6,12 @@ require 'csv'
 require 'ostruct'
 require 'date'
 
-def populate_start_dates(features, owners)
+def populate_start_dates(features, workers)
     day_free = {}
 
-    # Initializer each owner's free day to today.
-    owners.each do |owner|
-      day_free[owner] = DateTime.now
+    # Initializer each worker's free day to today.
+    workers.each do |worker|
+      day_free[worker] = DateTime.now
     end
 
     features.each do |feat|
@@ -27,13 +27,13 @@ def populate_start_dates(features, owners)
                 raise NotImplementedError
             end
 
-            owner = feat['owner']
+            worker = feat['owner']
             start_date = DateTime.parse(feat['start_date'])
         else
-            # Pick the owner who is free first
-            owner = day_free.min_by { |owner, free_date| free_date }[0]
+            # Pick the worker who is free first
+            worker = day_free.min_by { |worker, free_date| free_date }[0]
 
-            start_date = day_free[owner]
+            start_date = day_free[worker]
 
             # Update start_time
             feat['start_date'] = start_date.strftime("%B %e, %Y")
@@ -56,8 +56,8 @@ def populate_start_dates(features, owners)
         end
 
         # May have earlier, longer task
-        if (start_date > day_free[owner])
-            day_free[owner] = start_date
+        if (start_date > day_free[worker])
+            day_free[worker] = start_date
         end
     end
 end
