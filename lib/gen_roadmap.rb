@@ -20,6 +20,23 @@ def validate_features(features)
   end
 end
 
+def increment_start_date(start_date, effort_days)
+    # Increment start_date, skipping weekends
+    increment_map = {
+        1 => 1,
+        2 => 1,
+        3 => 1,
+        4 => 1,
+        # Friday => Monday
+        5 => 3,
+    }
+
+    effort_days.times do
+        start_date += increment_map[start_date.to_date.wday]
+    end
+    start_date
+end
+
 def populate_start_dates(features, workers)
     day_free = {}
 
@@ -49,15 +66,7 @@ def populate_start_dates(features, workers)
             effort_days = estimated_effort.match(/(?<day>\d+)/)[:day].to_i
         end
 
-        # Increment start_date, skipping weekends
-        effort_days.times do
-            if start_date.to_date.wday == 5
-                # Friday => Monday
-                start_date += 3
-            else
-                start_date += 1
-            end
-        end
+        start_date = increment_start_date(start_date, effort_days)
 
         # May have earlier, longer task
         if (start_date > day_free[worker])
