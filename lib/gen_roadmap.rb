@@ -37,6 +37,15 @@ def increment_start_date(start_date, effort_days)
     start_date
 end
 
+def parse_estimated_effort(estimated_effort)
+    if estimated_effort =~ /week/
+        effort_days = estimated_effort.match(/(?<week>\d+)/)[:week].to_i * 5
+    elsif estimated_effort =~ /day/
+        effort_days = estimated_effort.match(/(?<day>\d+)/)[:day].to_i
+    end
+    effort_days
+end
+
 def populate_start_dates(features, workers)
     day_free = {}
 
@@ -60,11 +69,7 @@ def populate_start_dates(features, workers)
             feat['start_date'] = start_date.strftime("%B %e, %Y")
         end
 
-        if estimated_effort =~ /week/
-            effort_days = estimated_effort.match(/(?<week>\d+)/)[:week].to_i * 5
-        elsif estimated_effort =~ /day/
-            effort_days = estimated_effort.match(/(?<day>\d+)/)[:day].to_i
-        end
+        effort_days = parse_estimated_effort(estimated_effort)
 
         start_date = increment_start_date(start_date, effort_days)
 
