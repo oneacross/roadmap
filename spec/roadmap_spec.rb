@@ -12,9 +12,6 @@ require 'gen_roadmap'
 # Given a schedule, calculate the next free day.
 # If a worker does not yet have a free date, then
 
-# Things I don't like:
-# * Worker names are hardcoded.
-
 describe "populate_start_dates" do
   it "populates initial start_date for one feature with no start_date" do
     features = [
