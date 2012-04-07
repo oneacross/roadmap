@@ -68,10 +68,8 @@ def populate_start_dates(features, workers)
 
         start_date = increment_start_date(start_date, effort_days)
 
-        # May have earlier, longer task
-        if (start_date > day_free[worker])
-            day_free[worker] = start_date
-        end
+        # May have prior, longer task
+        day_free[worker] = [start_date, day_free[worker]].max
     end
 end
 
