@@ -1,3 +1,4 @@
+require 'timecop'
 require 'gen_roadmap'
 
 # Given a list of tasks and efforts, setup a roadmap with dates.
@@ -11,6 +12,9 @@ require 'gen_roadmap'
 
 # Given a schedule, calculate the next free day.
 # If a worker does not yet have a free date, then
+
+# This script is time sensitive, use Timecop to freeze time on a Friday!
+Timecop.freeze(Date.parse("April 6, 2012"))
 
 describe "populate_start_dates" do
   it "populates initial start_date for one feature with no start_date" do
